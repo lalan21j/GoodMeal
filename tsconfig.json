@@ -1,0 +1,22 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "sourceMap": true,
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "@SpElementPlus/*": ["resources/js/*"]
+    },
+  },
+  "exclude": [
+    "node_modules",
+    "public"
+  ],
+  "include": [
+    "resources/js/**/*"
+  ]
+}
