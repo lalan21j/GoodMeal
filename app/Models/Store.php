@@ -45,4 +45,32 @@ class Store extends Model
     {
         return $this->belongsTo(Type_delivery::class);
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public static function store($data)
+    {
+        return Store::create($data);
+    }
+
+    /**
+     * @param $store
+     * @return void
+     */
+    public static function remove($store)
+    {
+        Store::where('id', $store)->delete();
+    }
+
+    /**
+     * @param $request
+     * @param $id
+     * @return void
+     */
+    public static function modify($request, $id)
+    {
+        Store::where('id', $id)->update($request);
+    }
 }

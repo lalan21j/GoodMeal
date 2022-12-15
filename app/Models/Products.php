@@ -45,4 +45,32 @@ class Products extends Model
     {
         return $this->belongsTo(Store::class);
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public static function savee($data)
+    {
+        return Products::create($data);
+    }
+
+    /**
+     * @param $product
+     * @return void
+     */
+    public static function remove($product)
+    {
+        Products::where('id', $product)->delete();
+    }
+
+    /**
+     * @param $request
+     * @param $id
+     * @return void
+     */
+    public static function modify($request, $id)
+    {
+        Products::where('id', $id)->update($request);
+    }
 }
