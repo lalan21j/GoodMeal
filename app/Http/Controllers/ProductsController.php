@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Products;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class ProductsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         try {
             Products::savee($request->all());
@@ -56,7 +57,7 @@ class ProductsController extends Controller
      * @param \App\Models\Products $products
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Products $products)
+    public function update(ProductRequest $request, Products $products)
     {
         try {
             $products::modify($request->except(['id']), $request->id);

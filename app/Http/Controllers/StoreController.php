@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use App\Http\Resources\StoreCollection;
 use App\Models\Store;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
@@ -13,11 +15,12 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return StoreCollection
      */
     public function index()
     {
-        return response()->json(Store::all('name', 'hours_operation_start', 'hours_operation_end', 'type_delivery_id', 'direction', 'rating')->sortBy('name'));
+        $sql = Store::with('type_delivery')->get();
+        return new StoreCollection($sql);
     }
 
     /**
@@ -26,7 +29,7 @@ class StoreController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         try {
             Store::store($request->all());
@@ -57,7 +60,7 @@ class StoreController extends Controller
      * @param \App\Models\Store $store
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Store $store)
+    public function update(StoreRequest $request, Store $store)
     {
         try {
             $store::modify($request->except(['id']), $request->id);
