@@ -14,7 +14,7 @@ class Store extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'hours_operation_start', 'hours_operation_end', 'type_delivery_id', 'direction', 'rating'
+        'name', 'hours_operation_start', 'hours_operation_end', 'type_delivery_id', 'direction', 'rating', 'delivery_time', 'distance', 'sales_day', 'large_image', 'small_image', 'favorite'
     ];
 
     /**
@@ -30,7 +30,8 @@ class Store extends Model
      */
     protected $casts = [
         'hours_operation_start' => 'timestamp',
-        'hours_operation_end'   => 'timestamp'
+        'hours_operation_end'   => 'timestamp',
+        'favorite'              => 'boolean'
     ];
 
     /**
