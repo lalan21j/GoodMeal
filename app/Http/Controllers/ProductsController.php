@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductsResource;
 use App\Models\Products;
-use App\Models\Store;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Inertia\Inertia;
 
 class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Inertia\Response
+     * @return void
      */
     public function index()
     {

@@ -14,7 +14,7 @@ class Order_lists extends Model
      * @var string[]
      */
     protected $fillable = [
-        'order_number', 'product_id', 'amount_total', 'schedule', 'retirement_date', 'list_products', 'delivery'
+        'order_number', 'amount_total', 'schedule', 'retirement_date', 'list_products', 'delivery', 'store_id'
     ];
 
     /**
@@ -41,8 +41,17 @@ class Order_lists extends Model
     /**
      * @return BelongsTo
      */
-    public function product(): BelongsTo
+    public function store(): BelongsTo
     {
-        return $this->belongsTo(Products::class);
+        return $this->belongsTo(Store::class);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public static function savee($data)
+    {
+        return Order_lists::create($data);
     }
 }

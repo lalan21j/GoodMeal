@@ -1,9 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/inertia-vue3'
 import { onMounted, ref } from 'vue'
 import { Timer, CirclePlus, Location } from '@element-plus/icons-vue'
+import moment = require('moment');
+import { Inertia } from '@inertiajs/inertia'
 
-defineProps({
+const p = defineProps({
   products: {
     type: Object,
     default: () => {
@@ -12,8 +14,55 @@ defineProps({
 })
 
 const activeName = ref('first')
+const listProduct = ref([])
+const totalPurchase = ref(0)
 
 onMounted(() => {})
+
+/**
+ * calculate profit
+ * @param product
+ */
+const purchase = (product: object) => {
+  const products = listProduct.value
+  const result = products.filter((p) => p.product_id === product.id)
+
+  if (!result.length) {
+    listProduct.value.push({
+      product_id: product.id,
+      quantity: 1,
+      price: product.price,
+      unit_price: product.price
+    })
+  }
+
+  if (result.length) {
+    result[0].quantity = result[0].quantity + 1
+    result[0].price = result[0].quantity * result[0].unit_price
+  }
+
+  // total Purchase
+  let total = 0
+  listProduct.value.forEach(function (current, index, array) {
+    total += current.price
+  })
+
+  totalPurchase.value = total
+}
+
+/**
+ * save purchase
+ */
+const savePurchase = () => {
+  const data = {
+    store_id: p.products.store_id,
+    order_number: moment().unix(),
+    amount_total: totalPurchase.value,
+    list_products: listProduct.value
+  }
+
+  Inertia.post('/orderLists', data)
+}
 </script>
 
 <template>
@@ -107,6 +156,7 @@ onMounted(() => {})
             size="30"
             class="float-right cursor-pointer"
             style="margin-top: -110px"
+            @click="purchase(product)"
           >
             <CirclePlus class="text-pink-600" />
           </el-icon>
@@ -131,6 +181,7 @@ onMounted(() => {})
         size="large"
         class="mx-2 mt-4"
         style="width: 100%"
+        @click="savePurchase"
       >
         Comprar
       </el-button>

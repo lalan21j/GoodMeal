@@ -16,6 +16,7 @@ class ProductsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'store_id'              => $this->id,
             'name'                  => $this->name,
             'direction'             => $this->direction,
             'hours_operation_start' => Carbon::parse($this->hours_operation_start)->format('h:m'),

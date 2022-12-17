@@ -16,4 +16,5 @@ Route::middleware([
 
 Route::resource('/products', 'ProductsController');
 Route::resource('/store', 'StoreController');
+Route::resource('/orderLists', 'OrderListsController');
 Route::get('/', 'StoreController@index');

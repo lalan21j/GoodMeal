@@ -8,7 +8,6 @@ use App\Http\Resources\StoreCollection;
 use App\Models\Store;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -56,7 +55,7 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        $sql = $store::with('product')->first();
+        $sql = $store::with('product')->where('id', $store->id)->first();
         $data = new ProductsResource($sql);
 
         return Inertia::render('Product', [
