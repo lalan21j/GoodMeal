@@ -17,13 +17,14 @@ class ProductsCollection extends ResourceCollection
     {
         return $this->collection->transform(function ($row, $key) {
             return [
-                'id'          => $row->id,
-                "name"        => $row->name,
-                "quantity"    => $row->quantity,
-                "price"       => $row->price,
-                //"store"      => $row->type_delivery->name,
-                "description" => $row->description,
-                "offer_price" => $row->offer_price
+                'name'                  => $row->name,
+                'direction'             => $row->direction,
+                'hours_operation_start' => Carbon::parse($row->hours_operation_start)->format('h:m'),
+                'hours_operation_end'   => Carbon::parse($row->hours_operation_end)->format('h:m'),
+                'rating'                => $row->rating,
+                'large_image'           => $row->large_image,
+                'small_image'           => $row->small_image,
+                'product'               => $row->product
             ];
         })->sortBy('name');
     }

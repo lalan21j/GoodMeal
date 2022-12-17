@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
+use App\Http\Resources\ProductsResource;
 use App\Http\Resources\StoreCollection;
 use App\Models\Store;
 use Illuminate\Database\QueryException;
@@ -51,11 +52,16 @@ class StoreController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Store $store
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show(Store $store)
     {
-        //
+        $sql = $store::with('product')->first();
+        $data = new ProductsResource($sql);
+
+        return Inertia::render('Product', [
+            'products' => $data
+        ]);
     }
 
     /**
