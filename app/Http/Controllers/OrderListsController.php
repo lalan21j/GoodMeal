@@ -6,6 +6,7 @@ use App\Models\Order_lists;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderListsController extends Controller
 {
@@ -23,7 +24,7 @@ class OrderListsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -33,7 +34,9 @@ class OrderListsController extends Controller
         try {
             Order_lists::savee($input);
 
-            return response()->json(['message' => __('messages.save')], 201);
+            return Redirect::back()->with([
+                'message' => __('messages.save')
+            ]);
         } catch (QueryException $e) {
             Log::error('OrderListsController.store', [$e]);
 

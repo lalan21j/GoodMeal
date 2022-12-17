@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Head } from '@inertiajs/inertia-vue3'
 import { onMounted } from 'vue'
 import { Bicycle, Goods, Location } from '@element-plus/icons-vue'
@@ -12,6 +12,10 @@ const props = defineProps({
 })
 
 onMounted(() => {})
+
+const redirect = (id: number) => {
+  window.location.href = window.location.href + 'store/' + id
+}
 </script>
 
 <template>
@@ -19,11 +23,29 @@ onMounted(() => {})
 
   <el-row>
     <el-col>
+      <el-tabs
+        v-model="activeName"
+        class="demo-tabs mx-3"
+      >
+        <el-tab-pane
+          label="Con stock"
+          name="first"
+        />
+        <el-tab-pane
+          label="Sin stock"
+          name="second"
+        />
+        <el-tab-pane
+          label="Favoritos"
+          name="third"
+        />
+      </el-tabs>
+
       <div
         v-for="(product, index) in props.store"
         :key="index"
-        class="mb-3 rounded-l border border-slate-300 rounded-lg "
-        style="width: 350px"
+        class="mb-3 mx-3 rounded-l border border-slate-300 rounded-lg"
+        @click="redirect(product.id)"
       >
         <div
           class="large_image"
