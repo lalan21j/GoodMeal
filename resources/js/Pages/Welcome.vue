@@ -11,10 +11,7 @@ const props = defineProps({
   }
 })
 
-onMounted(() => {
-  console.log(props.store)
-})
-
+onMounted(() => {})
 </script>
 
 <template>
@@ -22,37 +19,30 @@ onMounted(() => {
 
   <el-row>
     <el-col>
-      <el-card
-        v-for="product in $props.store"
-        class="mb-3"
+      <div
+        v-for="(product, index) in props.store"
+        :key="index"
+        class="mb-3 rounded-l border border-slate-300 rounded-lg "
         style="width: 350px"
       >
-        <div class="flex-fill">
-          <p
-            class="text-white bg-pink-500 rounded-full pl-4 ml-4 my-2"
-            style="width: 75%;"
-          >
+        <div
+          class="large_image"
+          :style="{backgroundImage:`url(${product.large_image})`}"
+        >
+          <p class="text-white bg-pink-500 rounded-full pl-3 ml-3 w-2/4">
             {{ product.hours_operation_start }} - {{ product.hours_operation_end }} hrs
           </p>
-          <p
-            class="text-pink-600 bg-pink-200 rounded-full pl-4 ml-4 my-2"
-            style="width: 75%;"
-          >
+          <p class="text-pink-600 bg-pink-200 rounded-full pl-3 ml-3 w-2/4 mt-3">
             {{ product.type_delivery }}
           </p>
         </div>
-
-        <el-image
-          :src="product.large_image"
-          class="flex-fill image"
-        />
 
         <el-image
           :src="product.small_image"
           class="flex-fill rounded-full img-rounde"
         />
 
-        <div class="pt-4">
+        <div class="px-4 py-2">
           <span style="font-weight: bold">{{ product.name }}</span>
           <div>
             <span
@@ -89,22 +79,12 @@ onMounted(() => {
             </el-col>
           </el-row>
         </div>
-      </el-card>
+      </div>
     </el-col>
   </el-row>
 </template>
 
 <style scoped>
-.text {
-  font-size: 14px;
-}
-
-.image {
-  width: 100%;
-  display: block;
-  height: 150px;
-}
-
 .img-rounde {
   margin-top: -50px;
   margin-right: 20px;
@@ -112,5 +92,14 @@ onMounted(() => {
   width: 100px;
   border-color: white;
   border-width: 10px;
+}
+
+.large_image {
+  height: 100px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card {
+  border: #0b2e13 1px solid;
 }
 </style>
