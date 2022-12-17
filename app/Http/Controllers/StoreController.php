@@ -9,18 +9,23 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return StoreCollection
+     * @return \Inertia\Response
      */
     public function index()
     {
         $sql = Store::with('type_delivery')->get();
-        return new StoreCollection($sql);
+        $data = new StoreCollection($sql);
+
+        return Inertia::render('Welcome', [
+            'store' => $data
+        ]);
     }
 
     /**
