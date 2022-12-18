@@ -5,7 +5,7 @@ import Layout from './Layouts/AppLayout'
 
 // ElementPlus
 import ElementPlus from 'element-plus'
-// import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css'
 import esES from 'element-plus/es/locale/lang/es'
 
 const appName = 'GOODMEAL'

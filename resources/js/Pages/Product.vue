@@ -153,18 +153,19 @@ const savePurchase = () => {
         <div>
           <div class="demo-image__preview">
             <el-image
-              :src="products.small_image"
+              :src="product.small_image"
               class="py-2"
               :zoom-rate="1.2"
-              :preview-src-list="[products.small_image]"
+              :preview-src-list="[product.small_image]"
               fit="cover"
+              style="height: 120px"
             />
           </div>
 
           <el-icon
             size="30"
             class="float-right cursor-pointer"
-            style="margin-top: -110px"
+            style="margin-top: -120px"
             @click="purchase(product)"
           >
             <CirclePlus class="text-pink-600" />
