@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/inertia-vue3'
 import { onMounted } from 'vue'
-import { Bicycle, Goods, Location } from '@element-plus/icons-vue'
+import { Bicycle, Goods, Location, ForkSpoon } from '@element-plus/icons-vue'
 
 const props = defineProps({
   store: {
@@ -12,10 +12,6 @@ const props = defineProps({
 })
 
 onMounted(() => {})
-
-const redirect = (id: number) => {
-  window.location.href = window.location.href + 'store/' + id
-}
 </script>
 
 <template>
@@ -23,6 +19,16 @@ const redirect = (id: number) => {
 
   <el-row>
     <el-col>
+      <Link
+        href="/orderLists"
+        class="float-right p-3"
+      >
+        Mis Ordenes
+        <el-icon :size="20">
+          <ForkSpoon />
+        </el-icon>
+      </Link>
+      <br><br>
       <el-tabs
         v-model="activeName"
         class="demo-tabs mx-3"
@@ -45,62 +51,63 @@ const redirect = (id: number) => {
         v-for="(product, index) in props.store"
         :key="index"
         class="mb-3 mx-3 rounded-l border border-slate-300 rounded-lg"
-        @click="redirect(product.id)"
       >
-        <div
-          class="large_image"
-          :style="{backgroundImage:`url(${product.large_image})`}"
-        >
-          <p class="text-white bg-pink-500 rounded-full pl-3 ml-3 w-2/4">
-            {{ product.hours_operation_start }} - {{ product.hours_operation_end }} hrs
-          </p>
-          <p class="text-pink-600 bg-pink-200 rounded-full pl-3 ml-3 w-2/4 mt-3">
-            {{ product.type_delivery }}
-          </p>
-        </div>
-
-        <el-image
-          :src="product.small_image"
-          class="flex-fill rounded-full img-rounde"
-        />
-
-        <div class="px-4 py-2">
-          <span style="font-weight: bold">{{ product.name }}</span>
-          <div>
-            <span
-              class="text-pink-600"
-              style="font-weight: bold;padding-right: 10px"
-            >Desde $1.000</span>
-            <span class="text-gray-400 line-through">$2.000</span>
+        <Link :href="/store/ + product.id">
+          <div
+            class="large_image"
+            :style="{backgroundImage:`url(${product.large_image})`}"
+          >
+            <p class="text-white bg-pink-500 rounded-full pl-3 ml-3 w-2/4">
+              {{ product.hours_operation_start }} - {{ product.hours_operation_end }} hrs
+            </p>
+            <p class="text-pink-600 bg-pink-200 rounded-full pl-3 ml-3 w-2/4 mt-3">
+              {{ product.type_delivery }}
+            </p>
           </div>
 
-          <el-row
-            gutter="20"
-            class="mt-2"
-          >
-            <el-col :span="9">
-              <el-icon :size="18">
-                <Bicycle />
-              </el-icon>
-              <span>{{ product.delivery_time }}</span>
-            </el-col>
+          <el-image
+            :src="product.small_image"
+            class="flex-fill rounded-full img-rounde"
+          />
 
-            <el-col :span="9">
-              <el-icon :size="18">
-                <Location />
-              </el-icon>
-              <span>{{ product.distance }}</span>
-            </el-col>
+          <div class="px-4 py-2">
+            <span style="font-weight: bold">{{ product.name }}</span>
+            <div>
+              <span
+                class="text-pink-600"
+                style="font-weight: bold;padding-right: 10px"
+              >Desde $1.000</span>
+              <span class="text-gray-400 line-through">$2.000</span>
+            </div>
 
-            <el-col :span="6">
-              <span v-if="product.sales_day < 10">{{ product.sales_day }}</span>
-              <span v-else>10 +</span>
-              <el-icon :size="18">
-                <Goods />
-              </el-icon>
-            </el-col>
-          </el-row>
-        </div>
+            <el-row
+              gutter="20"
+              class="mt-2"
+            >
+              <el-col :span="9">
+                <el-icon :size="18">
+                  <Bicycle />
+                </el-icon>
+                <span>{{ product.delivery_time }}</span>
+              </el-col>
+
+              <el-col :span="9">
+                <el-icon :size="18">
+                  <Location />
+                </el-icon>
+                <span>{{ product.distance }}</span>
+              </el-col>
+
+              <el-col :span="6">
+                <span v-if="product.sales_day < 10">{{ product.sales_day }}</span>
+                <span v-else>10 +</span>
+                <el-icon :size="18">
+                  <Goods />
+                </el-icon>
+              </el-col>
+            </el-row>
+          </div>
+        </Link>
       </div>
     </el-col>
   </el-row>
@@ -118,6 +125,7 @@ const redirect = (id: number) => {
 
 .large_image {
   height: 100px;
+  background-size: cover;
   border-radius: 10px 10px 0px 0px;
 }
 </style>

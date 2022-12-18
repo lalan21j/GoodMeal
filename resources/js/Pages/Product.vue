@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/inertia-vue3'
 import { onMounted, ref } from 'vue'
-import { Timer, CirclePlus, Location } from '@element-plus/icons-vue'
+import { Back, Timer, CirclePlus, Location } from '@element-plus/icons-vue'
 import moment = require('moment');
 import { Inertia } from '@inertiajs/inertia'
 
@@ -30,6 +30,7 @@ const purchase = (product: object) => {
   if (!result.length) {
     listProduct.value.push({
       product_id: product.id,
+      name: product.name,
       quantity: 1,
       price: product.price,
       unit_price: product.price
@@ -70,6 +71,14 @@ const savePurchase = () => {
     <Head title="GoodMeal" />
 
     <div class="mb-3 rounded-l border border-slate-300 rounded-lg">
+      <Link href="/">
+        <el-icon
+          :size="30"
+          class="float-left"
+        >
+          <Back class="font-bold pt-3 ml-2" />
+        </el-icon>
+      </Link>
       <div
         class="large_image"
         :style="{backgroundImage:`url(${products.large_image})`}"
